@@ -60,10 +60,13 @@ vertex_array_delete :: proc(vertex_array: ^VertexArray) {
 }
 
 vertex_attributes_set :: proc(index: u32, attrib: AttribDescriptor) {
-    gl.VertexAttribPointer(index, attrib.size, u32(attrib.type), attrib.normalize, attrib.stride, 0)
+    gl.VertexAttribPointer(index, attrib.size, u32(attrib.type), attrib.normalize, attrib.stride, attrib.pointer)
+}
+
+vertex_attributes_enable :: proc(index: u32) {
     gl.EnableVertexAttribArray(index)
 }
 
-vertex_attribute_set_divisor :: proc(index: u32, divisor: u32) {
+vertex_attributes_set_divisor :: proc(index: u32, divisor: u32) {
     gl.VertexAttribDivisor(index, divisor)
 }

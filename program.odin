@@ -24,7 +24,6 @@ AttribType :: enum u32 {
 
 Program :: struct {
 	id:       u32,
-	uniforms: gl.Uniforms,
 }
 
 program_create_and_link :: proc(shaders: []Shader) -> (program: Program, err: Error) {
@@ -32,8 +31,6 @@ program_create_and_link :: proc(shaders: []Shader) -> (program: Program, err: Er
 	program.id = gl.CreateProgram()
 
     program_link(&program, shaders) or_return
-
-	uniforms := gl.get_uniforms_from_program(program.id)
 
 	return program, nil 
 }
@@ -54,5 +51,4 @@ program_use :: proc(program: Program) {
 
 program_delete :: proc(program: Program) {
 	gl.DeleteProgram(program.id)
-	gl.destroy_uniforms(program.uniforms)
 }

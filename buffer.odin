@@ -42,7 +42,6 @@ BufferUsage :: enum u32 {
 }
 
 Buffer :: struct {
-    target: BufferTarget,
 	id: u32,
 }
 
@@ -93,11 +92,10 @@ buffers_delete :: proc(buffers: []Buffer) {
 	gl.DeleteBuffers(i32(len(buffers)), raw_data(buffer_ids))
 }
 
-buffer_bind :: proc(buffer: ^Buffer, target: BufferTarget) {
-    buffer.target = target
+buffer_bind :: proc(buffer: Buffer, target: BufferTarget) {
     gl.BindBuffer(u32(target), buffer.id)
 }
 
-buffer_data :: proc(buffer: Buffer, data: []$T, usage: BufferUsage) {
-    gl.BufferData(u32(buffer.target), len(data) * size_of(T), raw_data(data), u32(usage))
+buffer_data :: proc(buffer: Buffer, target: BufferTarget, data: []$T,  usage: BufferUsage) {
+    gl.BufferData(u32(target), len(data) * size_of(T), raw_data(data), u32(usage))
 }

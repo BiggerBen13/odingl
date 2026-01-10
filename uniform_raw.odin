@@ -21,13 +21,12 @@ uniform_set_4f32 :: proc(location: i32, value: [4]f32) {
 
 // 4x4 f32 Matrix single
 
-uniform_set_mat4x4f32 :: proc(location: i32, transpose: bool, value: matrix[4,4]f32) {
-    flat_matrix := intr.matrix_flatten(value)
-    uniform_set_raw4x4f32(location, transpose, flat_matrix[:])
+uniform_set_mat4x4f32 :: proc(location: i32, transpose: bool, value: ^matrix[4,4]f32) {
+    uniform_set_raw4x4f32(location, transpose, cast([^]f32)value)
 }
 
-uniform_set_raw4x4f32 :: proc(location: i32, transpose: bool, value: []f32) {
-    gl.UniformMatrix4fv(location, 1, transpose, raw_data(value))
+uniform_set_raw4x4f32 :: proc(location: i32, transpose: bool, value: [^]f32) {
+    gl.UniformMatrix4fv(location, 1, transpose, value)
 }
 
 uniform_set_4x4f32 :: proc {
