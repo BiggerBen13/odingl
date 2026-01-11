@@ -4,6 +4,8 @@ import gl "vendor:OpenGL"
 
 Color :: distinct [4]f32
 
+SetProcAddressType :: gl.Set_Proc_Address_Type
+
 MaskBit :: enum u8 {
 	Color   = 14, // gl.COLOR_BUFFER_BIT
 	Depth   = 8, // gl.DEPTH_BUFFER_BIT
@@ -50,7 +52,7 @@ Capability :: enum u32 {
 
 Mask :: bit_set[MaskBit; u32]
 
-gl_init :: proc(proc_addr: gl.Set_Proc_Address_Type, major: int = 3, minor: int = 3) {
+gl_init :: proc(proc_addr: SetProcAddressType, major: int = 3, minor: int = 3) {
 	gl.load_up_to(major, minor, proc_addr)
 }
 
