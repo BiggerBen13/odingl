@@ -96,6 +96,6 @@ buffer_bind :: proc(buffer: Buffer, target: BufferTarget) {
     gl.BindBuffer(u32(target), buffer.id)
 }
 
-buffer_data :: proc(buffer: Buffer, target: BufferTarget, data: []$T,  usage: BufferUsage) {
+buffer_data :: proc(target: BufferTarget, data: []$T,  usage: BufferUsage) {
     gl.BufferData(u32(target), len(data) * size_of(T), raw_data(data), u32(usage))
 }
